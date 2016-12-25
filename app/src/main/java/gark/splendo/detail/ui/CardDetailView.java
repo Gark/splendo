@@ -1,10 +1,12 @@
 package gark.splendo.detail.ui;
 
+import java.util.List;
+
+import gark.splendo.model.Card;
 import gark.splendo.mvp.PresenterView;
 
-/**
- * Created by artem_garkusha on 12/25/16.
- */
 
 public interface CardDetailView extends PresenterView {
+
+    void onCardsLoaded(final List<Card> cards);
 }

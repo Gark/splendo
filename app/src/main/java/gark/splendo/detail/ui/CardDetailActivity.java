@@ -5,16 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
+import java.util.List;
+
 import gark.splendo.R;
+import gark.splendo.detail.CardDetailPresenter;
 import gark.splendo.detail.CardDetailPresenterImpl;
-import gark.splendo.mvp.Presenter;
+import gark.splendo.model.Card;
 import gark.splendo.mvp.PresenterActivity;
 
 
-public class CardDetailActivity extends PresenterActivity implements CardDetailView {
+public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> implements CardDetailView {
 
     private static final String POSITION_KEY = "POSITION_KEY";
 
+    private CardsPagerAdapter mAdapter;
     private ViewPager mViewPager;
 
     public static void start(final Activity activity, final int position) {
@@ -24,16 +28,23 @@ public class CardDetailActivity extends PresenterActivity implements CardDetailV
     }
 
     @Override
-    protected Presenter onCreatePresenter() {
+    protected CardDetailPresenter onCreatePresenter() {
         return new CardDetailPresenterImpl();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail);
-
+        setContentView(R.layout.detail_screen);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        final int position = getIntent().getIntExtra(POSITION_KEY, 0);
+    }
+
+    @Override
+    public void onCardsLoaded(List<Card> cards) {
+        if (mAdapter == null) {
+            mAdapter = new CardsPagerAdapter(getSupportFragmentManager(), cards);
+            mViewPager.setAdapter(mAdapter);
+            mViewPager.setCurrentItem(getIntent().getIntExtra(POSITION_KEY, 0));
+        }
     }
 }

@@ -15,7 +15,8 @@
         <activity
             android:name=".cardlist.ui.MainActivity"
             android:label="@string/legendary_cards_list"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         <activity
             android:name=".detail.ui.CardDetailActivity"
             android:label="@string/card_details"
-            android:parentActivityName=".cardlist.ui.MainActivity" />
+            android:parentActivityName=".cardlist.ui.MainActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

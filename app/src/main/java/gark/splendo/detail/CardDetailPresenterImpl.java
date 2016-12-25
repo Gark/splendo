@@ -15,10 +15,13 @@ public class CardDetailPresenterImpl extends BasePresenter<CardDetailView>
 
     public CardDetailPresenterImpl() {
         mCardRepository = new CardRepositoryImpl(this);
+        mCardRepository.requestCards();
     }
 
     @Override
     public void onCardSetChanged(List<Card> list) {
-
+        if (mView != null) {
+            mView.onCardsLoaded(list);
+        }
     }
 }

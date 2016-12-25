@@ -18,20 +18,20 @@ import gark.splendo.R;
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.model.Card;
 
-class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
+public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
 
     private final LayoutInflater mLayoutInflater;
     private final List<Card> mCards = new ArrayList<>();
     private final Picasso mPicasso;
     private final CardListPresenter mPresenter;
 
-    CardsAdapter(final Context context, final CardListPresenter presenter) {
+    public CardsAdapter(final Context context, final CardListPresenter presenter) {
         mPicasso = Picasso.with(context);
         mPresenter = presenter;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    void updateCardsList(final List<Card> cards) {
+    public void updateCardsList(final List<Card> cards) {
         mCards.clear();
         mCards.addAll(cards);
         notifyDataSetChanged();
@@ -63,6 +63,7 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
 
         private final ImageView mCardImage;
         private final TextView mCardText;
+        private final TextView mCardPosition;
         private int mPosition;
 
         CardViewHolder(View itemView) {
@@ -70,10 +71,12 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
             itemView.setOnClickListener(this);
             mCardImage = (ImageView) itemView.findViewById(R.id.card_image);
             mCardText = (TextView) itemView.findViewById(R.id.card_name);
+            mCardPosition = (TextView) itemView.findViewById(R.id.item_position);
         }
 
         void displayData(final Card card, final int position) {
             mCardText.setText(card.mName);
+            mCardPosition.setText(String.valueOf(position));
             mPosition = position;
 
             mPicasso.load(card.mImage)

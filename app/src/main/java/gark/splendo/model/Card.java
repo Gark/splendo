@@ -1,6 +1,9 @@
 package gark.splendo.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmList;
@@ -12,7 +15,7 @@ import io.realm.annotations.PrimaryKey;
  * converted from retrofit response to class.
  */
 
-public class Card extends RealmObject {
+public class Card extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @SerializedName("cardId")
@@ -21,47 +24,50 @@ public class Card extends RealmObject {
     @SerializedName("name")
     public String mName;
 
-    @SerializedName("type")
-    String mType;
-
-    @SerializedName("rarity")
-    String mRarity;
-
     @SerializedName("text")
-    String mText;
+    public String mText;
 
     @SerializedName("img")
     public String mImage;
 
-    @SerializedName("imgGold")
-    public String mGif;
-
     @SerializedName("mechanics")
     RealmList<Mechanics> mMechanics;
+
+
+    public Card() {
+
+    }
+
+    protected Card(Parcel in) {
+        mCardId = in.readString();
+        mName = in.readString();
+        mText = in.readString();
+        mImage = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mCardId);
+        dest.writeString(mName);
+        dest.writeString(mText);
+        dest.writeString(mImage);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Card> CREATOR = new Parcelable.Creator<Card>() {
+        @Override
+        public Card createFromParcel(Parcel in) {
+            return new Card(in);
+        }
+
+        @Override
+        public Card[] newArray(int size) {
+            return new Card[size];
+        }
+    };
 }
-
-//public class Mechanics extends RealmObject {
-//    @SerializedName("name")
-//    String mNames;
-//}
-
-//"cardId": "BRMA14_3",
-//        "name": "Arcanotron",
-//        "cardSet": "Blackrock Mountain",
-//        "type": "Minion",
-//        "rarity": "Legendary",
-//        "cost": 0,
-//        "attack": 2,
-//        "health": 2,
-//        "text": "Both players have <b>Spell Damage +2</b>.",
-//        "elite": true,
-//        "race": "Mech",
-//        "playerClass": "Neutral",
-//        "img": "http://wow.zamimg.com/images/hearthstone/cards/enus/original/BRMA14_3.png",
-//        "imgGold": "http://wow.zamimg.com/images/hearthstone/cards/enus/animated/BRMA14_3_premium.gif",
-//        "locale": "enUS",
-//        "mechanics": [
-//        {
-//        "name": "Spell Damage"
-//        }
-//        ]

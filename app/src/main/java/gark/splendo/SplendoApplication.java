@@ -13,12 +13,12 @@ public class SplendoApplication extends Application {
         super.onCreate();
         Realm.init(getApplicationContext());
 
-//        // TODO migration.
-//        RealmConfiguration config = new RealmConfiguration.Builder()
-//                .deleteRealmIfMigrationNeeded()
-//                .build();
-//        Realm realm = Realm.getInstance(config);
-//        realm.close();
+        // For migration.
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm realm = Realm.getInstance(config);
+        realm.close();
 
     }
 }

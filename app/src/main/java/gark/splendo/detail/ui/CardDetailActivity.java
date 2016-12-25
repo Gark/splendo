@@ -14,7 +14,9 @@ import gark.splendo.detail.CardDetailPresenterImpl;
 import gark.splendo.model.Card;
 import gark.splendo.mvp.PresenterActivity;
 
-
+/**
+ * Activity responsible for displaying card pager view.
+ */
 public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> implements CardDetailView, DetailFragment.Callback {
 
     private static final String POSITION_KEY = "POSITION_KEY";
@@ -50,7 +52,7 @@ public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> i
     }
 
     @Override
-    public void onFavouritePressed(String cardId) {
+    public void onFavouriteClicked(String cardId) {
         mPresenter.toggleFavouriteCardState(cardId);
     }
 }

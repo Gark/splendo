@@ -1,12 +1,12 @@
 package gark.splendo.network;
 
 /**
- * Java Doc
+ * Interface that describes network behaviour logic.
  */
 public interface NetworkManager {
 
     /**
-     * Java Doc here.
+     * Method requests data cards from the network.
      */
     void requestCards();
 

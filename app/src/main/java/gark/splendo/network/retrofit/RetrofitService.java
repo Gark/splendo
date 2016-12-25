@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Java Doc here
+ * Retrofit network service.
  */
 
 public class RetrofitService {

@@ -39,12 +39,4 @@ public abstract class BasePresenter<T extends PresenterView> implements Presente
             context.startActivity(intent);
         }
     }
-
-    protected void startView(final Class<? extends Activity> clazz, final int requestCode) {
-        final Activity activity = mView.getActivity();
-        if (activity != null) {
-            final Intent intent = new Intent(activity, clazz);
-            activity.startActivityForResult(intent, requestCode);
-        }
-    }
 }

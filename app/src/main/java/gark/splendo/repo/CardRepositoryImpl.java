@@ -10,13 +10,11 @@ import io.realm.RealmResults;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 /**
- * Java Doc here
+ * Implementation of {@link CardRepository} interface.
+ * Based on Realm database.
  */
 public class CardRepositoryImpl implements CardRepository, RealmChangeListener<RealmResults<Card>> {
 
-    /**
-     * Java Doc here
-     */
     public interface Callback {
         void onCardListChanged(final List<Card> list);
     }
@@ -48,7 +46,7 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
             @Override
             public void execute(Realm realm) {
                 try {
-                    realm.insertOrUpdate(cards);
+                    realm.insert(cards);
                 } catch (RealmPrimaryKeyConstraintException e) {
                     e.printStackTrace(); // TODO
                 }

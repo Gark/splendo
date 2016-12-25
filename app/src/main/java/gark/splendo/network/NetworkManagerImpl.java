@@ -11,6 +11,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Implementation {@link NetworkManager} interface.
+ * Based on Retrofit network engine.
+ */
 public class NetworkManagerImpl implements NetworkManager {
 
     public interface NetworkCallback {

@@ -15,6 +15,9 @@ import gark.splendo.cardlist.CardListPresenterImpl;
 import gark.splendo.mvp.PresenterActivity;
 import gark.splendo.model.Card;
 
+/**
+ * Activity displays legendary card list.
+ */
 public class MainActivity extends PresenterActivity<CardListPresenter> implements CardListView {
 
     private CardsAdapter mAdapter;

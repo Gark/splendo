@@ -16,11 +16,16 @@ import com.squareup.picasso.Picasso;
 import gark.splendo.R;
 import gark.splendo.model.Card;
 
-
+/**
+ * Fragment display detail card data.
+ */
 public class DetailFragment extends Fragment implements View.OnClickListener {
 
+    /**
+     * Register a callback to be invoked when this card is marked like favourite.
+     */
     public interface Callback {
-        void onFavouritePressed(final String cardId);
+        void onFavouriteClicked(final String cardId);
     }
 
     public static DetailFragment newInstance(final Card card, final int position) {
@@ -102,7 +107,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (mCallback != null) {
             setFavouriteIcon(!mCard.mFavorite);
-            mCallback.onFavouritePressed(mCard.mCardId);
+            mCallback.onFavouriteClicked(mCard.mCardId);
         }
     }
 }

@@ -18,6 +18,9 @@ import gark.splendo.R;
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.model.Card;
 
+/**
+ * Class responsible for displaying card cell item.
+ */
 class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
 
     private final LayoutInflater mLayoutInflater;

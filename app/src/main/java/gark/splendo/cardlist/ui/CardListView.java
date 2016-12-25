@@ -5,10 +5,21 @@ import java.util.List;
 import gark.splendo.mvp.PresenterView;
 import gark.splendo.model.Card;
 
+/**
+ * Interface that describes card list UI behaviour.
+ */
 public interface CardListView extends PresenterView {
 
+    /**
+     * Notifies about changes in card list screen
+     *
+     * @param cards legendary cards.
+     */
     void onCardsLoaded(final List<Card> cards);
 
+    /**
+     * Notifies about data loading error.
+     */
     void onCardsLoadingError();
 
 }

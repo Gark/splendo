@@ -11,6 +11,9 @@ import gark.splendo.network.NetworkManagerImpl;
 import gark.splendo.repo.CardRepository;
 import gark.splendo.repo.CardRepositoryImpl;
 
+/**
+ * Card list Presenter Implementation.
+ */
 public class CardListPresenterImpl extends BasePresenter<CardListView>
         implements CardListPresenter, CardRepositoryImpl.Callback, NetworkManagerImpl.NetworkCallback {
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import gark.splendo.model.Card;
 import gark.splendo.mvp.PresenterActivity;
 
 
-public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> implements CardDetailView {
+public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> implements CardDetailView, DetailFragment.Callback {
 
     private static final String POSITION_KEY = "POSITION_KEY";
 
@@ -46,5 +47,10 @@ public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> i
             mViewPager.setAdapter(mAdapter);
             mViewPager.setCurrentItem(getIntent().getIntExtra(POSITION_KEY, 0));
         }
+    }
+
+    @Override
+    public void onFavouritePressed(String cardId) {
+        mPresenter.toggleFavouriteCardState(cardId);
     }
 }

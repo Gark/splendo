@@ -18,20 +18,20 @@ import gark.splendo.R;
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.model.Card;
 
-public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
+class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
 
     private final LayoutInflater mLayoutInflater;
     private final List<Card> mCards = new ArrayList<>();
     private final Picasso mPicasso;
     private final CardListPresenter mPresenter;
 
-    public CardsAdapter(final Context context, final CardListPresenter presenter) {
+    CardsAdapter(final Context context, final CardListPresenter presenter) {
         mPicasso = Picasso.with(context);
         mPresenter = presenter;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public void updateCardsList(final List<Card> cards) {
+    void updateCardsList(final List<Card> cards) {
         mCards.clear();
         mCards.addAll(cards);
         notifyDataSetChanged();
@@ -64,6 +64,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
         private final ImageView mCardImage;
         private final TextView mCardText;
         private final TextView mCardPosition;
+        private final View mFavourite;
         private int mPosition;
 
         CardViewHolder(View itemView) {
@@ -72,11 +73,13 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHold
             mCardImage = (ImageView) itemView.findViewById(R.id.card_image);
             mCardText = (TextView) itemView.findViewById(R.id.card_name);
             mCardPosition = (TextView) itemView.findViewById(R.id.item_position);
+            mFavourite = itemView.findViewById(R.id.favourite_icon);
         }
 
         void displayData(final Card card, final int position) {
             mCardText.setText(card.mName);
             mCardPosition.setText(String.valueOf(position));
+            mFavourite.setVisibility(card.mFavorite ? View.VISIBLE : View.GONE);
             mPosition = position;
 
             mPicasso.load(card.mImage)

@@ -16,13 +16,23 @@
 
     <TextView
         android:id="@+id/detail_position"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         tools:text="0" />
+
+    <ImageView
+        android:id="@+id/detail_favourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@null"
+        android:padding="10dp"
+        android:src="@drawable/ic_star_yellow_24dp" />
 
 
     <TextView

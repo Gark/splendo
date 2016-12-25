@@ -7,6 +7,7 @@ import gark.splendo.model.Card;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 /**
  * Java Doc here
@@ -17,7 +18,7 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
      * Java Doc here
      */
     public interface Callback {
-        void onCardSetChanged(final List<Card> list);
+        void onCardListChanged(final List<Card> list);
     }
 
     private final Realm mRealm;
@@ -28,7 +29,6 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
         mCallback = callback;
         mRealm = Realm.getDefaultInstance();
         mCardRealmList = mRealm.where(Card.class).findAllAsync();
-
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
 
     @Override
     public void onChange(RealmResults<Card> cards) {
-        mCallback.onCardSetChanged(new ArrayList<>(mCardRealmList));
+        mCallback.onCardListChanged(new ArrayList<>(mCardRealmList));
     }
 
     @Override
@@ -47,7 +47,22 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
         mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(cards);
+                try {
+                    realm.insertOrUpdate(cards);
+                } catch (RealmPrimaryKeyConstraintException e) {
+                    e.printStackTrace(); // TODO
+                }
+            }
+        });
+    }
+
+    @Override
+    public void toggleFavouriteState(final String cardId) {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Card card = realm.where(Card.class).equalTo("mCardId", cardId).findFirst();
+                card.mFavorite = !card.mFavorite;
             }
         });
     }

@@ -13,4 +13,6 @@ public interface CardRepository {
     void requestCards();
 
     void saveCards(final List<Card> cards);
+
+    void toggleFavouriteState(String cardId);
 }

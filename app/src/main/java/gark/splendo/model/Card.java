@@ -19,7 +19,7 @@ public class Card extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @SerializedName("cardId")
-    String mCardId;
+    public String mCardId;
 
     @SerializedName("name")
     public String mName;
@@ -30,9 +30,10 @@ public class Card extends RealmObject implements Parcelable {
     @SerializedName("img")
     public String mImage;
 
+    public boolean mFavorite;
+
     @SerializedName("mechanics")
     RealmList<Mechanics> mMechanics;
-
 
     public Card() {
 

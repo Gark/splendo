@@ -19,9 +19,14 @@ public class CardDetailPresenterImpl extends BasePresenter<CardDetailView>
     }
 
     @Override
-    public void onCardSetChanged(List<Card> list) {
+    public void onCardListChanged(List<Card> list) {
         if (mView != null) {
             mView.onCardsLoaded(list);
         }
+    }
+
+    @Override
+    public void toggleFavouriteCardState(final String cardId) {
+        mCardRepository.toggleFavouriteState(cardId);
     }
 }

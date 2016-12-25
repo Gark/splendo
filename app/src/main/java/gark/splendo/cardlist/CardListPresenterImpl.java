@@ -24,12 +24,17 @@ public class CardListPresenterImpl extends BasePresenter<CardListView>
 
     @Override
     public void requestCards() {
-        mCardRepository.requestCards();
         mNetworkManager.requestCards();
     }
 
     @Override
-    public void onCardSetChanged(List<Card> list) {
+    public void onAttach(CardListView view) {
+        super.onAttach(view);
+        mCardRepository.requestCards();
+    }
+
+    @Override
+    public void onCardListChanged(List<Card> list) {
         notifyViewWithResult(list);
     }
 

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Splendo</string>
+    <string name="network_operation_error">Network operation error</string>
+    <string name="legendary_cards_list">Legendary cards list</string>
+    <string name="card_details">Card detail</string>
 </resources>

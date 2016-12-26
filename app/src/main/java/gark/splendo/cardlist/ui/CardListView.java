@@ -18,8 +18,9 @@ public interface CardListView extends PresenterView {
     void onCardsLoaded(final List<Card> cards);
 
     /**
-     * Notifies about data loading error.
+     * Navigate to detail screen
+     *
+     * @param position selected position
      */
-    void onCardsLoadingError();
-
+    void navigateToDetailScreen(final int position);
 }

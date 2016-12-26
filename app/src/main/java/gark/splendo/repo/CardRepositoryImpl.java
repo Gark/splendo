@@ -15,18 +15,18 @@ import io.realm.exceptions.RealmPrimaryKeyConstraintException;
  */
 public class CardRepositoryImpl implements CardRepository, RealmChangeListener<RealmResults<Card>> {
 
-    public interface Callback {
-        void onCardListChanged(final List<Card> list);
-    }
-
     private final Realm mRealm;
     private final RealmResults<Card> mCardRealmList;
-    private final Callback mCallback;
+    private RepositoryCallback mCallback;
 
-    public CardRepositoryImpl(final Callback callback) {
-        mCallback = callback;
+    public CardRepositoryImpl() {
         mRealm = Realm.getDefaultInstance();
         mCardRealmList = mRealm.where(Card.class).findAllAsync();
+    }
+
+    @Override
+    public void setCallback(final RepositoryCallback callback) {
+        mCallback = callback;
     }
 
     @Override

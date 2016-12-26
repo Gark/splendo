@@ -1,6 +1,8 @@
 package gark.splendo.network;
 
 
+import android.util.Log;
+
 import java.util.List;
 
 import gark.splendo.model.Card;
@@ -17,19 +19,13 @@ import retrofit2.Response;
  */
 public class NetworkManagerImpl implements NetworkManager {
 
-    public interface NetworkCallback {
-        void onNetworkError();
-    }
-
     private static final String MASHAPE_KEY = "tt9izL4ylUmshTdwUb2vKZoxhC5Kp1e7XH2jsn9JE96tX3TjUC";
 
     private final Call<List<Card>> mCall;
     private final CardRepository mCardRepository;
-    private final NetworkCallback mCallback;
 
-    public NetworkManagerImpl(final CardRepository cardRepository, final NetworkCallback callback) {
+    public NetworkManagerImpl(final CardRepository cardRepository) {
         mCardRepository = cardRepository;
-        mCallback = callback;
 
         final HearthstoneApi api = new RetrofitService().createApi();
         mCall = api.cards(MASHAPE_KEY);
@@ -37,21 +33,25 @@ public class NetworkManagerImpl implements NetworkManager {
 
     @Override
     public void requestCards() {
-        // TODO switch to synch excecution.
         mCall.enqueue(new Callback<List<Card>>() {
             @Override
             public void onResponse(Call<List<Card>> call, Response<List<Card>> response) {
                 if (response != null && response.isSuccessful()) {
                     mCardRepository.saveCards(response.body());
                 } else {
-                    mCallback.onNetworkError();
+                    notifyNetworkError();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Card>> call, Throwable t) {
-                mCallback.onNetworkError();
+                t.printStackTrace();
+                notifyNetworkError();
             }
         });
+    }
+
+    private void notifyNetworkError() {
+        Log.e("NetworkManagerImpl", "network operation error");
     }
 }

@@ -11,6 +11,13 @@ import gark.splendo.model.Card;
 public interface CardRepository {
 
     /**
+     * set callback for presenter changes notifying
+     *
+     * @param callback backward callback
+     */
+    void setCallback(final RepositoryCallback callback);
+
+    /**
      * Request card list from database.
      */
     void requestCards();

@@ -13,6 +13,8 @@ import gark.splendo.detail.CardDetailPresenter;
 import gark.splendo.detail.CardDetailPresenterImpl;
 import gark.splendo.model.Card;
 import gark.splendo.mvp.PresenterActivity;
+import gark.splendo.repo.CardRepository;
+import gark.splendo.repo.CardRepositoryImpl;
 
 /**
  * Activity responsible for displaying card pager view.
@@ -32,7 +34,8 @@ public class CardDetailActivity extends PresenterActivity<CardDetailPresenter> i
 
     @Override
     protected CardDetailPresenter onCreatePresenter() {
-        return new CardDetailPresenterImpl();
+        final CardRepository cardRepository = new CardRepositoryImpl();
+        return new CardDetailPresenterImpl(cardRepository);
     }
 
     @Override

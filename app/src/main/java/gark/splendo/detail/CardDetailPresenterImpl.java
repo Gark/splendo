@@ -7,14 +7,16 @@ import gark.splendo.model.Card;
 import gark.splendo.mvp.BasePresenter;
 import gark.splendo.repo.CardRepository;
 import gark.splendo.repo.CardRepositoryImpl;
+import gark.splendo.repo.RepositoryCallback;
 
 public class CardDetailPresenterImpl extends BasePresenter<CardDetailView>
-        implements CardDetailPresenter, CardRepositoryImpl.Callback {
+        implements CardDetailPresenter, RepositoryCallback {
 
     private final CardRepository mCardRepository;
 
-    public CardDetailPresenterImpl() {
-        mCardRepository = new CardRepositoryImpl(this);
+    public CardDetailPresenterImpl(final CardRepository cardRepository) {
+        mCardRepository = cardRepository;
+        mCardRepository.setCallback(this);
         mCardRepository.requestCards();
     }
 

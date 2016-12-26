@@ -12,8 +12,13 @@ import java.util.List;
 import gark.splendo.R;
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.cardlist.CardListPresenterImpl;
+import gark.splendo.detail.ui.CardDetailActivity;
 import gark.splendo.mvp.PresenterActivity;
 import gark.splendo.model.Card;
+import gark.splendo.network.NetworkManager;
+import gark.splendo.network.NetworkManagerImpl;
+import gark.splendo.repo.CardRepository;
+import gark.splendo.repo.CardRepositoryImpl;
 
 /**
  * Activity displays legendary card list.
@@ -42,7 +47,9 @@ public class MainActivity extends PresenterActivity<CardListPresenter> implement
 
     @Override
     protected CardListPresenter onCreatePresenter() {
-        return new CardListPresenterImpl();
+        final CardRepository cardRepository = new CardRepositoryImpl();
+        final NetworkManager networkManager = new NetworkManagerImpl(cardRepository);
+        return new CardListPresenterImpl(cardRepository, networkManager);
     }
 
     @Override
@@ -52,7 +59,7 @@ public class MainActivity extends PresenterActivity<CardListPresenter> implement
     }
 
     @Override
-    public void onCardsLoadingError() {
-        Toast.makeText(this, R.string.network_operation_error, Toast.LENGTH_SHORT).show();
+    public void navigateToDetailScreen(int position) {
+        CardDetailActivity.start(this, position);
     }
 }

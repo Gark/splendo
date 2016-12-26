@@ -1,6 +1,6 @@
 # Hearthstone legendary cards sample app.
 
-![GIF](https://github.com/Gark/splendo/blob/master/name.gif?raw=true)
+![GIF](https://github.com/Gark/splendo/blob/master/app.gif?raw=true)
 
 Hearthstone card images viewer. Represents a grid of all legendary cards with image and title.
 

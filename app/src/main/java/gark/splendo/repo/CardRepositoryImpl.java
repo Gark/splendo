@@ -45,10 +45,11 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
         mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                try {
-                    realm.insert(cards);
-                } catch (RealmPrimaryKeyConstraintException e) {
-                    e.printStackTrace(); // TODO
+                for (Card item : cards) {
+                    final Card card = realm.where(Card.class).equalTo("mCardId", item.mCardId).findFirst();
+                    if (card == null) {
+                        realm.insert(item);
+                    }
                 }
             }
         });

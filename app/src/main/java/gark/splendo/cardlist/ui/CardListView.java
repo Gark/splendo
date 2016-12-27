@@ -23,4 +23,10 @@ public interface CardListView extends PresenterView {
      * @param position selected position
      */
     void navigateToDetailScreen(final int position);
+
+
+    /**
+     * Notifies with card request error;
+     */
+    void notifyCardRequestError();
 }

@@ -3,8 +3,10 @@ package gark.splendo.cardlist.ui;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -14,10 +16,10 @@ import gark.splendo.R;
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.cardlist.CardListPresenterImpl;
 import gark.splendo.detail.ui.CardDetailActivity;
+import gark.splendo.model.Card;
 import gark.splendo.model.mapper.CardsMapper;
 import gark.splendo.model.mapper.CardsMapperImpl;
 import gark.splendo.mvp.PresenterActivity;
-import gark.splendo.model.Card;
 import gark.splendo.network.NetworkManager;
 import gark.splendo.network.NetworkManagerImpl;
 import gark.splendo.repo.CardRepository;
@@ -66,5 +68,10 @@ public class MainActivity extends PresenterActivity<CardListPresenter> implement
     @Override
     public void navigateToDetailScreen(int position) {
         CardDetailActivity.start(this, position);
+    }
+
+    @Override
+    public void notifyCardRequestError() {
+        Log.e(MainActivity.class.getName(), "notifyCardRequestError");
     }
 }

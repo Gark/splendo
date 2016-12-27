@@ -71,6 +71,9 @@ public class CardListPresenterImpl extends BasePresenter<CardListView>
                 mCardRepository.saveCards(filteredCards);
             } catch (IOException e) {
                 e.printStackTrace();
+                if (mView != null) {
+                    mView.notifyCardRequestError();
+                }
             }
         }
     }

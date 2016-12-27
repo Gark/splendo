@@ -18,6 +18,7 @@ import gark.splendo.network.NetworkManager;
 import gark.splendo.repo.CardRepository;
 import gark.splendo.repo.RepositoryCallback;
 
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -75,6 +76,21 @@ public class CardListPresenterTest {
         verify(mNetworkManager).requestCards();
         verify(mMapper).mapDeathRattleCards(mCardList);
         verify(mCardRepository).saveCards(mCardList);
+    }
+
+    /**
+     * action: network request fails with exception
+     *
+     * @throws IOException exception.
+     */
+    @Test
+    public void testRequestCardsNetworkException() throws IOException {
+        when(mNetworkManager.requestCards()).thenThrow(new IOException());
+        mPresenter.requestCards();
+
+        verify(mMapper, never()).mapDeathRattleCards(mCardList);
+        verify(mCardRepository, never()).saveCards(mCardList);
+        verify(mView).notifyCardRequestError();
     }
 
     /**

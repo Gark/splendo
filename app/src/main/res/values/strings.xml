@@ -3,4 +3,5 @@
     <string name="network_operation_error">Network operation error</string>
     <string name="legendary_cards_list">Legendary cards list</string>
     <string name="card_details">Card detail</string>
+    <string name="card_request_error">Card request error</string>
 </resources>

@@ -24,11 +24,11 @@ public class CardListPresenterImpl extends BasePresenter<CardListView>
     private final CardsMapper mDeathRattleMapper;
 
     public CardListPresenterImpl(final CardRepository cardRepository, final NetworkManager networkManager
-            , final ExecutorService executorService, CardsMapper deathrattleMapper) {
+            , final ExecutorService executorService, CardsMapper cardsMapper) {
         mCardRepository = cardRepository;
         mCardRepository.setCallback(this);
         mExecutorService = executorService;
-        mDeathRattleMapper = deathrattleMapper;
+        mDeathRattleMapper = cardsMapper;
         mNetworkManager = networkManager;
     }
 

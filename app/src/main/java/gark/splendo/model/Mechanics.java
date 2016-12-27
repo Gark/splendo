@@ -1,10 +1,23 @@
 package gark.splendo.model;
 
-import com.google.gson.annotations.SerializedName;
+import android.support.annotation.VisibleForTesting;
 
-import io.realm.RealmObject;
+import com.google.gson.annotations.SerializedName;
 
 public class Mechanics {
     @SerializedName("name")
-    public String mNames;
+    private String mName;
+
+    public Mechanics() {
+
+    }
+
+    @VisibleForTesting
+    public Mechanics(final String name) {
+        mName = name;
+    }
+
+    public String getName() {
+        return mName;
+    }
 }

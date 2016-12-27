@@ -22,10 +22,10 @@ public class CardsMapperImpl implements CardsMapper {
         final List<Card> filteredList = new ArrayList<>();
 
         for (Card card : cards) {
-            if (card.mMechanics != null) {
-                List<Mechanics> list = card.mMechanics;
+            if (card.getMechanics() != null) {
+                List<Mechanics> list = card.getMechanics();
                 for (Mechanics item : list) {
-                    if (item != null && DEATCHRATTLE.equals(item.mNames)) {
+                    if (item != null && DEATCHRATTLE.equals(item.getName())) {
                         filteredList.add(card);
                         break;
                     }

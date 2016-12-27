@@ -80,12 +80,12 @@ class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardViewHolder> {
         }
 
         void displayData(final Card card, final int position) {
-            mCardText.setText(card.mName);
+            mCardText.setText(card.getName());
             mCardPosition.setText(String.valueOf(position));
-            mFavourite.setVisibility(card.mFavorite ? View.VISIBLE : View.GONE);
+            mFavourite.setVisibility(card.isFavorite() ? View.VISIBLE : View.GONE);
             mPosition = position;
 
-            mPicasso.load(card.mImage)
+            mPicasso.load(card.getImage())
                     .error(R.drawable.ic_photo_black_24dp)
                     .placeholder(R.drawable.ic_photo_black_24dp)
                     .into(mCardImage);

@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
@@ -22,25 +21,61 @@ public class Card extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @SerializedName("cardId")
-    public String mCardId;
+    private String mCardId;
 
     @SerializedName("name")
-    public String mName;
+    private String mName;
 
     @SerializedName("text")
-    public String mText;
+    private String mText;
 
     @SerializedName("img")
-    public String mImage;
+    private String mImage;
 
-    public boolean mFavorite;
+    private boolean mFavorite;
 
     @Ignore
     @SerializedName("mechanics")
-    public List<Mechanics> mMechanics;
+    private List<Mechanics> mMechanics;
 
     public Card() {
 
+    }
+
+    public String getCardId() {
+        return mCardId;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
+    }
+
+    public String getText() {
+        return mText;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public boolean isFavorite() {
+        return mFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.mFavorite = favorite;
+    }
+
+    public List<Mechanics> getMechanics() {
+        return mMechanics;
+    }
+
+    public void setMechanics(final List<Mechanics> mMechanics) {
+        this.mMechanics = mMechanics;
     }
 
     protected Card(Parcel in) {

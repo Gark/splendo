@@ -47,7 +47,7 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         for (Card item : cards) {
-            final Card card = realm.where(Card.class).equalTo("mCardId", item.mCardId).findFirst();
+            final Card card = realm.where(Card.class).equalTo("mCardId", item.getCardId()).findFirst();
             if (card == null) {
                 realm.insert(item);
             }
@@ -61,7 +61,7 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
             @Override
             public void execute(Realm realm) {
                 Card card = realm.where(Card.class).equalTo("mCardId", cardId).findFirst();
-                card.mFavorite = !card.mFavorite;
+                card.setFavorite(!card.isFavorite());
             }
         });
     }

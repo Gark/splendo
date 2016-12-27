@@ -53,8 +53,8 @@ public class MainActivity extends PresenterActivity<CardListPresenter> implement
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
         final CardRepository cardRepository = new CardRepositoryImpl();
         final NetworkManager networkManager = new NetworkManagerImpl();
-        final CardsMapper deathrattleMapper = new CardsMapperImpl();
-        return new CardListPresenterImpl(cardRepository, networkManager, executorService, deathrattleMapper);
+        final CardsMapper cardsMapper = new CardsMapperImpl();
+        return new CardListPresenterImpl(cardRepository, networkManager, executorService, cardsMapper);
     }
 
     @Override

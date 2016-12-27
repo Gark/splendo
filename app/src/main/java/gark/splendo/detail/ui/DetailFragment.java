@@ -24,7 +24,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     /**
      * Register a callback to be invoked when this card is marked like favourite.
      */
-    public interface Callback {
+    interface Callback {
         void onFavouriteClicked(final String cardId);
     }
 
@@ -83,17 +83,17 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         final int position = getArguments().getInt(POSITION_KEY);
         if (mCard == null) return;
 
-        setFavouriteIcon(mCard.mFavorite);
+        setFavouriteIcon(mCard.isFavorite());
 
         mFavourite.setOnClickListener(this);
 
         mPosition.setText(String.valueOf(position));
-        mName.setText(mCard.mName);
-        final String text = mCard.mText == null ? "" : mCard.mText;
+        mName.setText(mCard.getName());
+        final String text = mCard.getText() == null ? "" : mCard.getText();
         mDescription.setText(Html.fromHtml(text));
 
         Picasso.with(getActivity())
-                .load(mCard.mImage)
+                .load(mCard.getImage())
                 .error(R.drawable.ic_photo_black_24dp)
                 .placeholder(R.drawable.ic_photo_black_24dp)
                 .into(mImage);
@@ -106,8 +106,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (mCallback != null) {
-            setFavouriteIcon(!mCard.mFavorite);
-            mCallback.onFavouriteClicked(mCard.mCardId);
+            setFavouriteIcon(!mCard.isFavorite());
+            mCallback.onFavouriteClicked(mCard.getCardId());
         }
     }
 }

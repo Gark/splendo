@@ -6,8 +6,11 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -32,8 +35,9 @@ public class Card extends RealmObject implements Parcelable {
 
     public boolean mFavorite;
 
+    @Ignore
     @SerializedName("mechanics")
-    RealmList<Mechanics> mMechanics;
+    public List<Mechanics> mMechanics;
 
     public Card() {
 

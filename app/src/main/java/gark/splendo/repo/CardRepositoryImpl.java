@@ -1,5 +1,7 @@
 package gark.splendo.repo;
 
+import android.support.annotation.WorkerThread;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,6 @@ import gark.splendo.model.Card;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
-import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 /**
  * Implementation of {@link CardRepository} interface.
@@ -40,19 +41,18 @@ public class CardRepositoryImpl implements CardRepository, RealmChangeListener<R
         mCallback.onCardListChanged(new ArrayList<>(mCardRealmList));
     }
 
+    @WorkerThread
     @Override
     public void saveCards(final List<Card> cards) {
-        mRealm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                for (Card item : cards) {
-                    final Card card = realm.where(Card.class).equalTo("mCardId", item.mCardId).findFirst();
-                    if (card == null) {
-                        realm.insert(item);
-                    }
-                }
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        for (Card item : cards) {
+            final Card card = realm.where(Card.class).equalTo("mCardId", item.mCardId).findFirst();
+            if (card == null) {
+                realm.insert(item);
             }
-        });
+        }
+        realm.commitTransaction();
     }
 
     @Override

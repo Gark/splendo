@@ -5,14 +5,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import gark.splendo.R;
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.cardlist.CardListPresenterImpl;
 import gark.splendo.detail.ui.CardDetailActivity;
+import gark.splendo.model.mapper.CardsMapper;
+import gark.splendo.model.mapper.CardsMapperImpl;
 import gark.splendo.mvp.PresenterActivity;
 import gark.splendo.model.Card;
 import gark.splendo.network.NetworkManager;
@@ -47,9 +50,11 @@ public class MainActivity extends PresenterActivity<CardListPresenter> implement
 
     @Override
     protected CardListPresenter onCreatePresenter() {
+        final ExecutorService executorService = Executors.newSingleThreadExecutor();
         final CardRepository cardRepository = new CardRepositoryImpl();
-        final NetworkManager networkManager = new NetworkManagerImpl(cardRepository);
-        return new CardListPresenterImpl(cardRepository, networkManager);
+        final NetworkManager networkManager = new NetworkManagerImpl();
+        final CardsMapper deathrattleMapper = new CardsMapperImpl();
+        return new CardListPresenterImpl(cardRepository, networkManager, executorService, deathrattleMapper);
     }
 
     @Override

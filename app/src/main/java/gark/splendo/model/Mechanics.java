@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 
-public class Mechanics extends RealmObject {
+public class Mechanics {
     @SerializedName("name")
-    String mNames;
+    public String mNames;
 }

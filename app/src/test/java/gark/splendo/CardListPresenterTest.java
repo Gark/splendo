@@ -6,17 +6,20 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import gark.splendo.cardlist.CardListPresenter;
 import gark.splendo.cardlist.CardListPresenterImpl;
 import gark.splendo.cardlist.ui.CardListView;
 import gark.splendo.model.Card;
+import gark.splendo.model.mapper.CardsMapper;
 import gark.splendo.network.NetworkManager;
 import gark.splendo.repo.CardRepository;
 import gark.splendo.repo.RepositoryCallback;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Covers the test scenarios for class {@link gark.splendo.cardlist.CardListPresenter}
@@ -31,12 +34,20 @@ public class CardListPresenterTest {
     private NetworkManager mNetworkManager;
     @Mock
     private CardListView mView;
+    @Mock
+    private CardsMapper mMapper;
 
     private CardListPresenter mPresenter;
 
+    private ArrayList<Card> mCardList;
+
     @Before
     public void setUp() {
-        mPresenter = new CardListPresenterImpl(mCardRepository, mNetworkManager);
+        mCardList = new ArrayList<>();
+        mCardList.add(new Card());
+
+        ExecutorServiceSameThread sameThreadExecutor = new ExecutorServiceSameThread();
+        mPresenter = new CardListPresenterImpl(mCardRepository, mNetworkManager, sameThreadExecutor, mMapper);
         mPresenter.onAttach(mView);
     }
 
@@ -56,9 +67,14 @@ public class CardListPresenterTest {
      * assert: {@link NetworkManager} "requestCards" is been executed.
      */
     @Test
-    public void testRequestCardFromNetwork() {
+    public void testRequestCardFromNetwork() throws IOException {
+        when(mNetworkManager.requestCards()).thenReturn(mCardList);
+        when(mMapper.mapDeathRattleCards(mCardList)).thenReturn(mCardList);
+
         mPresenter.requestCards();
         verify(mNetworkManager).requestCards();
+        verify(mMapper).mapDeathRattleCards(mCardList);
+        verify(mCardRepository).saveCards(mCardList);
     }
 
     /**
@@ -69,11 +85,9 @@ public class CardListPresenterTest {
     public void testOnDataFromLocalStorageCome() {
         RepositoryCallback callback = ((RepositoryCallback) mPresenter);
 
-        ArrayList<Card> list = new ArrayList<>();
-        list.add(new Card());
-        callback.onCardListChanged(list);
+        callback.onCardListChanged(mCardList);
 
-        verify(mView).onCardsLoaded(list);
+        verify(mView).onCardsLoaded(mCardList);
     }
 
     /**
